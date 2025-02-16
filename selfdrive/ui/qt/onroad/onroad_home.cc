@@ -56,30 +56,6 @@ void OnroadWindow::updateState(const UIState &s) {
   }
 }
 
-void OnroadWindow::mousePressEvent(QMouseEvent* e) {
-  if (uiState()->scene.accEco_btn.contains(e->x(), e->y())) {
-    uiState()->scene.accEco = uiState()->scene.accEco == 2 ? 0 : uiState()->scene.accEco + 1;
-    notify_state();
-  } else {
-  #ifdef ENABLE_MAPS
-    if (map != nullptr) {
-      bool sidebarVisible = geometry().x() > 0;
-      bool show_map = !sidebarVisible;
-      map->setVisible(show_map && !map->isVisible());
-    }
-  #endif
-    // propagation event to parent(HomeWindow)
-    QWidget::mousePressEvent(e);
-  }
-}
-
-void OnroadWindow::notify_state() {
-  MessageBuilder msg;
-  auto state = msg.initEvent().initJvePilotUIState();
-  state.setAccEco(uiState()->scene.accEco);
-  uiState()->pm->send("jvePilotUIState", msg);
-}
-
 void OnroadWindow::offroadTransition(bool offroad) {
   alerts->clear();
 }

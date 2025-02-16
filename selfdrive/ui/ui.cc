@@ -61,20 +61,17 @@ static void update_state(UIState *s) {
   }
   scene.started = sm["deviceState"].getDeviceState().getStarted() && scene.ignition;
 
-  if (sm.updated("jvePilotState")) {
-    scene.autoFollowEnabled = sm["jvePilotState"].getJvePilotUIState().getAutoFollow() ? 1 : 0;
-    scene.accEco = sm["jvePilotState"].getJvePilotUIState().getAccEco();
-  }
   if (sm.updated("carState")) {
-    scene.longControl = sm["carState"].getCarState().getJvePilotCarState().getLongControl();
-    scene.cruiseEnabled = sm["carState"].getCarState().getCruiseState().getEnabled();
+    auto jvePilotCarState = sm["carState"].getCarState().getJvePilotCarState();
+    scene.autoFollowEnabled = jvePilotCarState.getAutoFollow() ? 1 : 0;
+    scene.accEco = jvePilotCarState.getAccEco();
+    scene.longControl = jvePilotCarState.getLongControl();
   }
 }
 
 void ui_update_params(UIState *s) {
   auto params = Params();
   s->scene.is_metric = params.getBool("IsMetric");
-  s->scene.experimental_mode = params.getBool("ExperimentalMode");
 }
 
 void UIState::updateStatus() {
@@ -100,8 +97,7 @@ void UIState::updateStatus() {
 }
 
 UIState::UIState(QObject *parent) : QObject(parent) {
-  pm = std::make_unique<PubMaster, const std::initializer_list<const char *>>({"jvePilotUIState"});
-  sm = std::make_unique<SubMaster>(std::vector<const char*>{"jvePilotState",
+  sm = std::make_unique<SubMaster>(std::vector<const char*>{
     "modelV2", "controlsState", "liveCalibration", "radarState", "deviceState",
     "pandaStates", "carParams", "driverMonitoringState", "carState", "driverStateV2",
     "wideRoadCameraState", "managerState", "selfdriveState", "longitudinalPlan",

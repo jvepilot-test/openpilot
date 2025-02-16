@@ -39,7 +39,6 @@ SafetyModel = car.CarParams.SafetyModel
 
 IGNORED_SAFETY_MODES = (SafetyModel.silent, SafetyModel.noOutput)
 
-
 class SelfdriveD:
   def __init__(self, CP=None):
     self.params = Params()
@@ -355,11 +354,11 @@ class SelfdriveD:
         self.events.add(EventName.modeldLagging)
 
     # decrement personality on distance button press
-    if self.CP.openpilotLongitudinalControl:
-      if any(not be.pressed and be.type == ButtonType.gapAdjustCruise for be in CS.buttonEvents):
-        self.personality = (self.personality - 1) % 3
-        self.params.put_nonblocking('LongitudinalPersonality', str(self.personality))
-        self.events.add(EventName.personalityChanged)
+    # if self.CP.openpilotLongitudinalControl:
+    #   if any(not be.pressed and be.type == ButtonType.gapAdjustCruise for be in CS.buttonEvents):
+    #     self.personality = (self.personality - 1) % 3
+    #     self.params.put_nonblocking('LongitudinalPersonality', str(self.personality))
+    #     self.events.add(EventName.personalityChanged)
 
   def data_sample(self):
     car_state = messaging.recv_one(self.car_state_sock)
@@ -454,8 +453,10 @@ class SelfdriveD:
   def step(self):
     CS = self.data_sample()
     self.update_events(CS)
+
     if not self.CP.passive and self.initialized:
-      self.enabled, self.active = self.state_machine.update(self.events)
+      self.enabled, self.active = self.state_machine.update(self.events, CS.jvePilotCarState.aolcAvailable , CS.standstill)
+
     self.update_alerts(CS)
 
     self.publish_selfdriveState(CS)
@@ -473,6 +474,7 @@ class SelfdriveD:
       self.is_metric = self.params.get_bool("IsMetric")
       self.experimental_mode = self.params.get_bool("ExperimentalMode") and self.CP.openpilotLongitudinalControl
       self.personality = self.read_personality_param()
+
       time.sleep(0.1)
 
   def run(self):

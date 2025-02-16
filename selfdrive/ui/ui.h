@@ -73,9 +73,6 @@ typedef struct UIScene {
   int autoFollowEnabled = -1;
   int accEco = -1;
   bool longControl = false;
-  bool cruiseEnabled = false;
-
-  QRect accEco_btn;
 } UIScene;
 
 class UIState : public QObject {
