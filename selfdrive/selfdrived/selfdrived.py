@@ -114,6 +114,8 @@ class SelfdriveD:
     self.state_machine = StateMachine()
     self.rk = Ratekeeper(100, print_delay_threshold=None)
 
+    self.aolc_available = False
+
     # Determine startup event
     self.startup_event = EventName.startup if build_metadata.openpilot.comma_remote and build_metadata.tested_channel else EventName.startupMaster
     if not car_recognized:
@@ -440,6 +442,8 @@ class SelfdriveD:
     ss.alertSound = self.AM.current_alert.audible_alert
     ss.alertHudVisual = self.AM.current_alert.visual_alert
 
+    ss.jvePilotSelfdriveState.aolcReady = self.aolc_available
+
     self.pm.send('selfdriveState', ss_msg)
 
     # onroadEvents - logged every second or on change
@@ -455,7 +459,7 @@ class SelfdriveD:
     self.update_events(CS)
 
     if not self.CP.passive and self.initialized:
-      self.enabled, self.active = self.state_machine.update(self.events, CS.jvePilotCarState.aolcAvailable , CS.standstill)
+      self.enabled, self.active, self.aolc_available = self.state_machine.update(self.events, CS.jvePilotCarState.aolcReady, CS.standstill)
 
     self.update_alerts(CS)
 

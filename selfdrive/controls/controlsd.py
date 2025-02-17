@@ -88,11 +88,11 @@ class Controls:
     CC = car.CarControl.new_message()
     CC.enabled = self.sm['selfdriveState'].enabled
 
-    aolc_active = CS.jvePilotCarState.aolcAvailable and not StateMachine.has_events_blocking_aolc(self.sm['onroadEvents'])
+    aolc_available = self.sm['selfdriveState'].jvePilotSelfdriveState.aolcAvailable
 
     # Check which actuators can be enabled
     standstill = abs(CS.vEgo) <= max(self.CP.minSteerSpeed, MIN_LATERAL_CONTROL_SPEED) or CS.standstill
-    CC.latActive = (aolc_active or self.sm['selfdriveState'].active) and not CS.steerFaultTemporary and not CS.steerFaultPermanent and not standstill
+    CC.latActive = (aolc_available or self.sm['selfdriveState'].active) and not CS.steerFaultTemporary and not CS.steerFaultPermanent and not standstill
     CC.longActive = CC.enabled and not any(e.overrideLongitudinal for e in self.sm['onroadEvents']) and self.CP.openpilotLongitudinalControl
 
     actuators = CC.actuators

@@ -841,6 +841,12 @@ struct SelfdriveState {
     mid @2;
     full @3;
   }
+
+  struct JvePilotSelfdriveState {
+    aolcAvailable @0 :Bool;
+  }
+
+  jvePilotSelfdriveState @13: :JvePilotSelfdriveState;  # jvePilot
 }
 
 struct ControlsState @0x97ff69c53601abf1 {

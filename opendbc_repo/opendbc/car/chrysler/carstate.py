@@ -191,8 +191,8 @@ class CarState(CarStateBase):
     ret.jvePilotCarState.accFollowDistance = int(min(3, max(0, cp.vl["DAS_4"]['ACC_DISTANCE_CONFIG_2'])))
     ret.jvePilotCarState.autoFollow = self.auto_follow
     ret.jvePilotCarState.lkasDisabled = self.lkas_disabled
-    ret.jvePilotCarState.aolcAvailable = self.cachedParams.get_bool('jvePilot.settings.steer.aolc',1000) \
-                                           and ret.cruiseState.available and ret.gearShifter in FORWARD_GEARS
+    ret.jvePilotCarState.aolcReady = self.cachedParams.get_bool('jvePilot.settings.steer.aolc',1000) \
+                                     and ret.cruiseState.available and ret.gearShifter in FORWARD_GEARS
 
     return ret
 

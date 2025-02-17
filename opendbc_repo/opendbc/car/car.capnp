@@ -297,7 +297,7 @@ struct CarState {
     longControl @2 :Bool;
     autoFollow @3 :Bool;
     accEco @4 :UInt8;
-    aolcAvailable @5 :Bool;
+    aolcReady @5 :Bool;
     lkasDisabled @6 :Bool;
   }
 
