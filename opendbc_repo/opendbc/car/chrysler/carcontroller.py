@@ -212,7 +212,7 @@ class CarController(CarControllerBase):
       return 'ACC_Accel'
 
   def auto_follow_button(self, CC, CS):
-    if CC.jvePilotCarState.autoFollow:
+    if CS.out.jvePilotCarState.autoFollow:
       crossover = [0,
                    self.cachedParams.get_float('jvePilot.settings.autoFollow.speed1-2Bars', 1000) * CV.MPH_TO_MS,
                    self.cachedParams.get_float('jvePilot.settings.autoFollow.speed2-3Bars', 1000) * CV.MPH_TO_MS,
@@ -230,10 +230,10 @@ class CarController(CarControllerBase):
       if self.autoFollowDistanceLock is not None and abs(crossover[self.autoFollowDistanceLock] - CS.out.vEgo) > AUTO_FOLLOW_LOCK_MS:
         self.autoFollowDistanceLock = None  # unlock
 
-      if CC.jvePilotCarState.accFollowDistance != target_follow and (self.autoFollowDistanceLock or target_follow) == target_follow:
+      if CS.out.jvePilotCarState.accFollowDistance != target_follow and (self.autoFollowDistanceLock or target_follow) == target_follow:
         self.autoFollowDistanceLock = target_follow  # going from close to far, use upperbound
 
-        if CC.jvePilotCarState.accFollowDistance > target_follow:
+        if CS.out.jvePilotCarState.accFollowDistance > target_follow:
           return 'ACC_Distance_Dec'
         else:
           return 'ACC_Distance_Inc'

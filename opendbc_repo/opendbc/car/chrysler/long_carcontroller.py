@@ -30,13 +30,13 @@ class LongCarController:
 
     accDiff = None
     if button_pressed(CS.out, ButtonType.followInc, False):
-      if CC.jvePilotCarState.accEco < 2:
+      if CS.out.jvePilotCarState.accEco < 2:
         accDiff = 1
     elif button_pressed(CS.out, ButtonType.followDec, False):
-      if CC.jvePilotCarState.accEco > 0:
+      if CS.out.jvePilotCarState.accEco > 0:
         accDiff = -1
     if accDiff is not None:
-      newEco = CC.jvePilotCarState.accEco + accDiff
+      newEco = CS.out.jvePilotCarState.accEco + accDiff
       self.settingsParams.put_nonblocking("jvePilot.settings.accEco", str(newEco))
 
     return True
