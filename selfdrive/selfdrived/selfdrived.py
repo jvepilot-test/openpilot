@@ -442,7 +442,7 @@ class SelfdriveD:
     ss.alertSound = self.AM.current_alert.audible_alert
     ss.alertHudVisual = self.AM.current_alert.visual_alert
 
-    ss.jvePilotSelfdriveState.aolcReady = self.aolc_available
+    ss.jvePilotSelfdriveState.aolcAvailable = self.aolc_available
 
     self.pm.send('selfdriveState', ss_msg)
 
