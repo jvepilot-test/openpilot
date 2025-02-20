@@ -39,7 +39,6 @@ private:
   Params params;
   QPixmap eco_imgs[3];
   int eco;
-  bool engageable;
 };
 
 void drawIcon(QPainter &p, const QPoint &center, const QPixmap &img, const QBrush &bg, float opacity);
