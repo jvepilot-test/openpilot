@@ -168,6 +168,7 @@ class Car:
 
     self.is_metric = self.params.get_bool("IsMetric")
     self.experimental_mode = self.params.get_bool("ExperimentalMode")
+    self.acc_eco = int(self.params.get("jvePilot.settings.accEco"))
 
     # card is driven by can recv, expected at 100Hz
     self.rk = Ratekeeper(100, print_delay_threshold=None)
@@ -205,6 +206,8 @@ class Car:
     # TODO: mirror the carState.cruiseState struct?
     CS.vCruise = float(self.v_cruise_helper.v_cruise_kph)
     CS.vCruiseCluster = float(self.v_cruise_helper.v_cruise_cluster_kph)
+
+    CS.jvePilotCarState.accEco = self.acc_eco
 
     return CS, RD
 
@@ -273,6 +276,7 @@ class Car:
     while not evt.is_set():
       self.is_metric = self.params.get_bool("IsMetric")
       self.experimental_mode = self.params.get_bool("ExperimentalMode") and self.CP.openpilotLongitudinalControl
+      self.acc_eco = int(self.params.get("jvePilot.settings.accEco"))
       time.sleep(0.1)
 
   def card_thread(self):
