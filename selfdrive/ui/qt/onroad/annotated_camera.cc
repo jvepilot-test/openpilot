@@ -20,10 +20,8 @@ AnnotatedCameraWidget::AnnotatedCameraWidget(VisionStreamType type, QWidget *par
   experimental_btn = new ExperimentalButton(this);
   main_layout->addWidget(experimental_btn, 0, Qt::AlignTop | Qt::AlignRight);
 
-  QVBoxLayout *layout = new QVBoxLayout;
   eco_btn = new EcoButton(this);
-  layout->addWidget(eco_btn);
-  main_layout->addWidget(layout, 0, Qt::AlignBottom | Qt::AlignRight)
+  main_layout->addWidget(eco_btn, 0, Qt::AlignBottom | Qt::AlignRight);
 }
 
 void AnnotatedCameraWidget::updateState(const UIState &s) {

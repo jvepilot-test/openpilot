@@ -49,24 +49,24 @@ void ExperimentalButton::paintEvent(QPaintEvent *event) {
 }
 
 // EcoButton
-EcoButton::EcoButton(QWidget *parent) : experimental_mode(false), engageable(false), QPushButton(parent) {
+EcoButton::EcoButton(QWidget *parent) : eco(0), engageable(false), QPushButton(parent) {
   setFixedSize(btn_size, btn_size);
 
-  eco_imgs[0] = = loadPixmap("../assets/jvepilot/img_acc_eco_off.png", {img_size, img_size});
-  eco_imgs[1] = = loadPixmap("../assets/jvepilot/img_acc_eco_1.png", {img_size, img_size});
-  eco_imgs[1] = = loadPixmap("../assets/jvepilot/img_acc_eco_2.png", {img_size, img_size});
+  eco_imgs[0] = loadPixmap("../assets/jvepilot/img_acc_eco_off.png", {img_size, img_size});
+  eco_imgs[1] = loadPixmap("../assets/jvepilot/img_acc_eco_1.png", {img_size, img_size});
+  eco_imgs[1] = loadPixmap("../assets/jvepilot/img_acc_eco_2.png", {img_size, img_size});
 
-  QObject::connect(this, &QPushButton::clicked, this, &ExperimentalButton::changeMode);
+  QObject::connect(this, &QPushButton::clicked, this, &EcoButton::changeMode);
 }
 
 void EcoButton::changeMode() {
   eco = eco == 2 ? 0 : eco + 1;
-  params.putBool("jvePilot.settings.accEco", eco);
+  params.put("jvePilot.settings.accEco", std::to_string(eco));
 }
 
 void EcoButton::updateState(const UIState &s) {
   if ((*s.sm).updated("carState")) {
-    const auto cs = (*s.sm)["carState"].getJvePilotCarState();
+    const auto cs = (*s.sm)["carState"].getCarState().getJvePilotCarState();
     bool accEco = cs.getAccEco();
     if (accEco != eco) {
       engageable = true;
