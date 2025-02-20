@@ -64,14 +64,15 @@ void EcoButton::changeMode() {
 }
 
 void EcoButton::updateState(const UIState &s) {
-  if ((*s.sm).updated("carState")) {
-    const auto cs = (*s.sm)["carState"].getCarState().getJvePilotCarState();
-    bool accEco = cs.getAccEco();
-    if (accEco != eco) {
-      engageable = true;
-      eco = accEco;
-      update();
-    }
+  const auto ds = (*s.sm)["selfdriveState"].getSelfdriveState();
+  bool eng = ds.getEngageable() || ds.getEnabled();
+
+  const auto cs = (*s.sm)["carState"].getCarState().getJvePilotCarState();
+  bool accEco = cs.getAccEco();
+  if ((accEco != eco) || (eng != engageable)) {
+    engageable = eng;
+    eco = accEco;
+    update();
   }
 }
 
@@ -80,5 +81,3 @@ void EcoButton::paintEvent(QPaintEvent *event) {
   QPixmap img = eco_imgs[eco];
   drawIcon(p, QPoint(btn_size / 2, btn_size / 2), img, QColor(0, 0, 0, 166), (isDown() || !engageable) ? 0.6 : 1.0);
 }
-
-
