@@ -47,3 +47,39 @@ void ExperimentalButton::paintEvent(QPaintEvent *event) {
   QPixmap img = experimental_mode ? experimental_img : engage_img;
   drawIcon(p, QPoint(btn_size / 2, btn_size / 2), img, QColor(0, 0, 0, 166), (isDown() || !engageable) ? 0.6 : 1.0);
 }
+
+// EcoButton
+EcoButton::EcoButton(QWidget *parent) : experimental_mode(false), engageable(false), QPushButton(parent) {
+  setFixedSize(btn_size, btn_size);
+
+  eco_imgs[0] = = loadPixmap("../assets/jvepilot/img_acc_eco_off.png", {img_size, img_size});
+  eco_imgs[1] = = loadPixmap("../assets/jvepilot/img_acc_eco_1.png", {img_size, img_size});
+  eco_imgs[1] = = loadPixmap("../assets/jvepilot/img_acc_eco_2.png", {img_size, img_size});
+
+  QObject::connect(this, &QPushButton::clicked, this, &ExperimentalButton::changeMode);
+}
+
+void EcoButton::changeMode() {
+  eco = eco == 2 ? 0 : eco + 1;
+  params.putBool("jvePilot.settings.accEco", eco);
+}
+
+void EcoButton::updateState(const UIState &s) {
+  if (*s.sm).updated("carState") {
+    const auto cs = (*s.sm)["carState"].getJvePilotCarState();
+    bool accEco = cs.getAccEco();
+    if (accEco != eco) {
+      engageable = true;
+      eco = accEco;
+      update();
+    }
+  }
+}
+
+void EcoButton::paintEvent(QPaintEvent *event) {
+  QPainter p(this);
+  QPixmap img = eco_imgs[eco];
+  drawIcon(p, QPoint(btn_size / 2, btn_size / 2), img, QColor(0, 0, 0, 166), (isDown() || !engageable) ? 0.6 : 1.0);
+}
+
+

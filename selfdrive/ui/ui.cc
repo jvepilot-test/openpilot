@@ -64,7 +64,6 @@ static void update_state(UIState *s) {
   if (sm.updated("carState")) {
     auto jvePilotCarState = sm["carState"].getCarState().getJvePilotCarState();
     scene.autoFollowEnabled = jvePilotCarState.getAutoFollow() ? 1 : 0;
-    scene.accEco = jvePilotCarState.getAccEco();
     scene.longControl = jvePilotCarState.getLongControl();
   }
 }

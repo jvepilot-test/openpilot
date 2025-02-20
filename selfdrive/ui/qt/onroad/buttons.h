@@ -25,4 +25,21 @@ private:
   bool engageable;
 };
 
+class EcoButton : public QPushButton {
+  Q_OBJECT
+
+public:
+  explicit EcoButton(QWidget *parent = 0);
+  void updateState(const UIState &s);
+
+private:
+  void paintEvent(QPaintEvent *event) override;
+  void changeMode();
+
+  Params params;
+  QPixmap eco_imgs[3];
+  int eco;
+  bool engageable;
+};
+
 void drawIcon(QPainter &p, const QPoint &center, const QPixmap &img, const QBrush &bg, float opacity);

@@ -71,7 +71,6 @@ typedef struct UIScene {
 
   // jvePilot
   int autoFollowEnabled = -1;
-  int accEco = -1;
   bool longControl = false;
 } UIScene;
 
