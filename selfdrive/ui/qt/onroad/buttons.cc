@@ -65,7 +65,7 @@ void EcoButton::changeMode() {
 
 void EcoButton::updateState(const UIState &s) {
   const auto cs = (*s.sm)["carState"].getCarState().getJvePilotCarState();
-  bool accEco = cs.getAccEco();
+  int accEco = cs.getAccEco();
   if (accEco != eco) {
     eco = accEco;
     update();
