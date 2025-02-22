@@ -19,7 +19,6 @@ V_CRUISE_INITIAL_EXPERIMENTAL_MODE = 105
 V_CRUISE_DELTA = 5  # ACC increments (unit agnostic)
 IMPERIAL_INCREMENT = round(CV.MPH_TO_KPH, 1)  # round here to avoid rounding errors incrementing set speed
 
-
 ButtonEvent = car.CarState.ButtonEvent
 ButtonType = car.CarState.ButtonEvent.Type
 CRUISE_LONG_PRESS = 50

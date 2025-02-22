@@ -19,8 +19,6 @@ from openpilot.selfdrive.controls.lib.longcontrol import LongControl
 from openpilot.selfdrive.controls.lib.vehicle_model import VehicleModel
 from openpilot.selfdrive.locationd.helpers import PoseCalibrator, Pose
 
-from opendbc.car.interfaces import FORWARD_GEARS
-from openpilot.selfdrive.selfdrived.state import StateMachine
 
 State = log.SelfdriveState.OpenpilotState
 LaneChangeState = log.LaneChangeState

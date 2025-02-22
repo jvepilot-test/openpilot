@@ -82,7 +82,6 @@ class Car:
 
     self.can_callbacks = can_comm_callbacks(self.can_sock, self.pm.sock['sendcan'])
 
-    experimental_long_allowed = self.params.get_bool("ExperimentalLongitudinalEnabled")
     if CI is None:
       # wait for one pandaState and one CAN packet
       print("Waiting for CAN messages...")
@@ -118,7 +117,7 @@ class Car:
 
     if self.params.get_bool("jvePilot.settings.steer.aolc"):
       self.CP.alternativeExperience |= ALTERNATIVE_EXPERIENCE.AOLC_ENABLED
-    if experimental_long_allowed:
+    if self.params.get_bool("ExperimentalLongitudinalEnabled"):
       self.CP.alternativeExperience |= ALTERNATIVE_EXPERIENCE.LONG_ENABLED
 
     openpilot_enabled_toggle = self.params.get_bool("OpenpilotEnabledToggle")

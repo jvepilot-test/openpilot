@@ -39,6 +39,7 @@ SafetyModel = car.CarParams.SafetyModel
 
 IGNORED_SAFETY_MODES = (SafetyModel.silent, SafetyModel.noOutput)
 
+
 class SelfdriveD:
   def __init__(self, CP=None):
     self.params = Params()
@@ -457,10 +458,8 @@ class SelfdriveD:
   def step(self):
     CS = self.data_sample()
     self.update_events(CS)
-
     if not self.CP.passive and self.initialized:
       self.enabled, self.active, self.aolc_available = self.state_machine.update(self.events, CS.jvePilotCarState.aolcReady, CS.standstill)
-
     self.update_alerts(CS)
 
     self.publish_selfdriveState(CS)
@@ -478,7 +477,6 @@ class SelfdriveD:
       self.is_metric = self.params.get_bool("IsMetric")
       self.experimental_mode = self.params.get_bool("ExperimentalMode") and self.CP.openpilotLongitudinalControl
       self.personality = self.read_personality_param()
-
       time.sleep(0.1)
 
   def run(self):
