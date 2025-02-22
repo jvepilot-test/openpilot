@@ -50,7 +50,7 @@ void ExperimentalButton::paintEvent(QPaintEvent *event) {
 
 // EcoButton
 EcoButton::EcoButton(QWidget *parent) : eco(0), QPushButton(parent) {
-  setFixedSize(btn_size, btn_size);
+  setFixedSize(btn_size_lg, btn_size_lg);
 
   eco_imgs[0] = loadPixmap("../assets/jvepilot/img_acc_eco_off.png", {img_size, img_size});
   eco_imgs[1] = loadPixmap("../assets/jvepilot/img_acc_eco_1.png", {img_size, img_size});
@@ -75,7 +75,7 @@ void EcoButton::updateState(const UIState &s) {
 void EcoButton::paintEvent(QPaintEvent *event) {
   QPainter p(this);
   QPixmap img = eco_imgs[eco];
-  drawIcon(p, QPoint(btn_size / 2, btn_size / 2), img, QColor(0, 0, 0, 166), isDown() ? 0.6 : 1.0);
+  drawIcon(p, QPoint(btn_size_lg / 2, btn_size_lg / 2), img, QColor(0, 0, 0, 166), isDown() ? 0.6 : 1.0);
 }
 
 // AutoFollowButton

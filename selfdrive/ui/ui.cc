@@ -60,12 +60,6 @@ static void update_state(UIState *s) {
     scene.light_sensor = -1;
   }
   scene.started = sm["deviceState"].getDeviceState().getStarted() && scene.ignition;
-
-  if (sm.updated("carState")) {
-    auto jvePilotCarState = sm["carState"].getCarState().getJvePilotCarState();
-    scene.autoFollowEnabled = jvePilotCarState.getAutoFollow() ? 1 : 0;
-    scene.longControl = jvePilotCarState.getLongControl();
-  }
 }
 
 void ui_update_params(UIState *s) {

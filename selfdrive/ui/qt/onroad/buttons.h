@@ -6,6 +6,8 @@
 
 const int btn_size = 192;
 const int img_size = (btn_size / 4) * 3;
+const int btn_size_lg = btn_size * 1.8;
+const int img_size_lg = (btn_size_lg / 4) * 3;
 
 class ExperimentalButton : public QPushButton {
   Q_OBJECT
