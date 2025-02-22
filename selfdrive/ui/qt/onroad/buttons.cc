@@ -79,7 +79,7 @@ void EcoButton::paintEvent(QPaintEvent *event) {
 }
 
 // AutoFollowButton
-EcoButton::AutoFollowButton(QWidget *parent) : eco(0), QPushButton(parent) {
+AutoFollowButton::AutoFollowButton(QWidget *parent) : auto_follow(false), long_control(false), QPushButton(parent) {
   setFixedSize(btn_size, btn_size);
 
   imgs[0] = loadPixmap("../assets/jvepilot/img_auto_follow_off.png", {img_size, img_size});
