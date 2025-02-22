@@ -96,11 +96,12 @@ void AutoFollowButton::changeMode() {
 
 void AutoFollowButton::updateState(const UIState &s) {
   const auto cs = (*s.sm)["carState"].getCarState().getJvePilotCarState();
-  long_control = cs.getLongControl();
 
   int autoFollow = cs.getAutoFollow();
-  if (autoFollow != auto_follow) {
+  bool longControl = cs.getLongControl();
+  if (autoFollow != auto_follow || longControl != long_control) {
     auto_follow = autoFollow;
+    long_control = longControl;
     update();
   }
 }
