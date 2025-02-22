@@ -202,7 +202,7 @@ class CarController(CarControllerBase):
     if eco_limit:
       target = min(target, CS.out.vEgo + (eco_limit * CV.MPH_TO_MS))
 
-    target = math.ceil(min(CS.out.vCruise, target) * self.round_to_unit)
+    target = math.floor(min(CS.out.vCruise, target) * self.round_to_unit)
     current = round(CS.out.cruiseState.speed * self.round_to_unit)
     minSetting = round(self.minAccSetting * self.round_to_unit)
 
