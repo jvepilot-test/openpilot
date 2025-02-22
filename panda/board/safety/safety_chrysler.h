@@ -22,10 +22,9 @@ typedef enum {
   CHRYSLER_PACIFICA,
   CHRYSLER_JEEP,
 } ChryslerPlatform;
-ChryslerPlatform chrysler_platform = CHRYSLER_JEEP;
-bool ram_platform = false;
-
-const ChryslerAddrs *chrysler_addrs = &CHRYSLER_ADDRS;
+static bool ram_platform = false;
+static ChryslerPlatform chrysler_platform;
+static const ChryslerAddrs *chrysler_addrs;
 
 static uint32_t chrysler_get_checksum(const CANPacket_t *to_push) {
   int checksum_byte = GET_LEN(to_push) - 1U;
