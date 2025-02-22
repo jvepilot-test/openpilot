@@ -82,8 +82,8 @@ void EcoButton::paintEvent(QPaintEvent *event) {
 AutoFollowButton::AutoFollowButton(QWidget *parent) : auto_follow(false), long_control(false), QPushButton(parent) {
   setFixedSize(btn_size, btn_size);
 
-  imgs[0] = loadPixmap("../assets/jvepilot/img_auto_follow_off.png", {img_size, img_size});
-  imgs[1] = loadPixmap("../assets/jvepilot/img_auto_follow_on.png", {img_size, img_size});
+  imgs[0] = loadPixmap("../assets/jvepilot/auto_follow_off.png", {img_size, img_size});
+  imgs[1] = loadPixmap("../assets/jvepilot/auto_follow_on.png", {img_size, img_size});
 
   QObject::connect(this, &QPushButton::clicked, this, &AutoFollowButton::changeMode);
 }
