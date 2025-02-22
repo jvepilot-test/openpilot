@@ -169,6 +169,7 @@ class Car:
     self.is_metric = self.params.get_bool("IsMetric")
     self.experimental_mode = self.params.get_bool("ExperimentalMode")
     self.acc_eco = int(self.params.get("jvePilot.settings.accEco"))
+    self.auto_follow = self.params.get_bool("jvePilot.settings.autoFollow")
 
     # card is driven by can recv, expected at 100Hz
     self.rk = Ratekeeper(100, print_delay_threshold=None)
@@ -208,6 +209,7 @@ class Car:
     CS.vCruiseCluster = float(self.v_cruise_helper.v_cruise_cluster_kph)
 
     CS.jvePilotCarState.accEco = self.acc_eco
+    CS.jvePilotCarState.autoFollow = self.auto_follow
 
     return CS, RD
 
@@ -277,6 +279,7 @@ class Car:
       self.is_metric = self.params.get_bool("IsMetric")
       self.experimental_mode = self.params.get_bool("ExperimentalMode") and self.CP.openpilotLongitudinalControl
       self.acc_eco = int(self.params.get("jvePilot.settings.accEco"))
+      self.auto_follow = self.params.get_bool("jvePilot.settings.autoFollow")
       time.sleep(0.1)
 
   def card_thread(self):

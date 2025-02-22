@@ -77,3 +77,38 @@ void EcoButton::paintEvent(QPaintEvent *event) {
   QPixmap img = eco_imgs[eco];
   drawIcon(p, QPoint(btn_size / 2, btn_size / 2), img, QColor(0, 0, 0, 166), isDown() ? 0.6 : 1.0);
 }
+
+// AutoFollowButton
+EcoButton::AutoFollowButton(QWidget *parent) : eco(0), QPushButton(parent) {
+  setFixedSize(btn_size, btn_size);
+
+  imgs[0] = loadPixmap("../assets/jvepilot/img_auto_follow_off.png", {img_size, img_size});
+  imgs[1] = loadPixmap("../assets/jvepilot/img_auto_follow_on.png", {img_size, img_size});
+
+  QObject::connect(this, &QPushButton::clicked, this, &AutoFollowButton::changeMode);
+}
+
+void AutoFollowButton::changeMode() {
+  if (!long_control) {
+    params.putBool("jvePilot.settings.autoFollow", !auto_follow);
+  }
+}
+
+void AutoFollowButton::updateState(const UIState &s) {
+  const auto cs = (*s.sm)["carState"].getCarState().getJvePilotCarState();
+  long_control = cs.getLongControl();
+
+  int autoFollow = cs.getAutoFollow();
+  if (autoFollow != auto_follow) {
+    auto_follow = autoFollow;
+    update();
+  }
+}
+
+void AutoFollowButton::paintEvent(QPaintEvent *event) {
+  if (!long_control) {
+    QPainter p(this);
+    QPixmap img = imgs[auto_follow ? 1 : 0];
+    drawIcon(p, QPoint(btn_size / 2, btn_size / 2), img, QColor(0, 0, 0, 166), isDown() ? 0.6 : 1.0);
+  }
+}

@@ -24,6 +24,7 @@ private:
   std::unique_ptr<PubMaster> pm;
 
   EcoButton *eco_btn;
+  AutoFollowButton *auto_follow_btn;
 
   int skip_frame_count = 0;
   bool wide_cam_requested = false;

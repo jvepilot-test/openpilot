@@ -22,11 +22,15 @@ AnnotatedCameraWidget::AnnotatedCameraWidget(VisionStreamType type, QWidget *par
 
   eco_btn = new EcoButton(this);
   main_layout->addWidget(eco_btn, 0, Qt::AlignBottom | Qt::AlignRight);
+
+  auto_follow_btn = new AutoFollowButton(this);
+  main_layout->addWidget(auto_follow_btn, 0, Qt::AlignVCenter | Qt::AlignRight);
 }
 
 void AnnotatedCameraWidget::updateState(const UIState &s) {
   // update engageability/experimental mode button
   experimental_btn->updateState(s);
+  auto_follow_btn->updateState(s);
   eco_btn->updateState(s);
   dmon.updateState(s);
 }

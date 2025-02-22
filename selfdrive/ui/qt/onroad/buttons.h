@@ -41,4 +41,21 @@ private:
   int eco;
 };
 
+class AutoFollowButton : public QPushButton {
+  Q_OBJECT
+
+public:
+  explicit AutoFollowButton(QWidget *parent = 0);
+  void updateState(const UIState &s);
+
+private:
+  void paintEvent(QPaintEvent *event) override;
+  void changeMode();
+
+  Params params;
+  QPixmap imgs[2];
+  bool auto_follow;
+  bool long_control;
+};
+
 void drawIcon(QPainter &p, const QPoint &center, const QPixmap &img, const QBrush &bg, float opacity);
