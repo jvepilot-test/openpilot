@@ -52,9 +52,9 @@ void ExperimentalButton::paintEvent(QPaintEvent *event) {
 EcoButton::EcoButton(QWidget *parent) : eco(0), QPushButton(parent) {
   setFixedSize(btn_size_lg, btn_size_lg);
 
-  eco_imgs[0] = loadPixmap("../assets/jvepilot/img_acc_eco_off.png", {img_size, img_size});
-  eco_imgs[1] = loadPixmap("../assets/jvepilot/img_acc_eco_1.png", {img_size, img_size});
-  eco_imgs[2] = loadPixmap("../assets/jvepilot/img_acc_eco_2.png", {img_size, img_size});
+  eco_imgs[0] = loadPixmap("../assets/jvepilot/img_acc_eco_off.png", {img_size_lg, img_size_lg});
+  eco_imgs[1] = loadPixmap("../assets/jvepilot/img_acc_eco_1.png", {img_size_lg, img_size_lg});
+  eco_imgs[2] = loadPixmap("../assets/jvepilot/img_acc_eco_2.png", {img_size_lg, img_size_lg});
 
   QObject::connect(this, &QPushButton::clicked, this, &EcoButton::changeMode);
 }
