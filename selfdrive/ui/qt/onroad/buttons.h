@@ -62,5 +62,6 @@ private:
   bool cruise_enabled;
 };
 
-void drawIcon(QPainter &p, const QPoint &center, const QPixmap &img, const QBrush &bg, float opacity, int btn_size);
+void drawIcon(QPainter &p, const QPoint &center, const QPixmap &img, const QBrush &bg, float opacity, int bg_btn_size);
+
 void drawImage(QPainter &p, const QPoint &center, const QPixmap &img, float opacity);

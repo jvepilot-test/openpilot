@@ -4,12 +4,12 @@
 
 #include "selfdrive/ui/qt/util.h"
 
-void drawIcon(QPainter &p, const QPoint &center, const QPixmap &img, const QBrush &bg, float opacity, int btn_size) {
+void drawIcon(QPainter &p, const QPoint &center, const QPixmap &img, const QBrush &bg, float opacity, int bg_btn_size) {
   p.setRenderHint(QPainter::Antialiasing);
   p.setOpacity(1.0);  // bg dictates opacity of ellipse
   p.setPen(Qt::NoPen);
   p.setBrush(bg);
-  p.drawEllipse(center, btn_size / 2, btn_size / 2);
+  p.drawEllipse(center, bg_btn_size / 2, bg_btn_size / 2);
   p.setOpacity(opacity);
   p.drawPixmap(center - QPoint(img.width() / 2, img.height() / 2), img);
   p.setOpacity(1.0);
@@ -124,7 +124,7 @@ void AutoFollowButton::paintEvent(QPaintEvent *event) {
   QPainter p(this);
   if (long_control) {
     QPixmap img = long_control_imgs[cruise_enabled ? 1 : 0];
-    drawIcon(p, QPoint(btn_size / 2, btn_size / 2), img, 1.0);
+    drawImage(p, QPoint(btn_size / 2, btn_size / 2), img, 1.0);
   } else {
     QPixmap img = imgs[auto_follow ? 1 : 0];
     drawIcon(p, QPoint(btn_size / 2, btn_size / 2), img, QColor(0, 0, 0, 166), isDown() ? 0.6 : 1.0, btn_size);
