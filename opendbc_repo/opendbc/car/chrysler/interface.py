@@ -22,7 +22,7 @@ class CarInterface(CarInterfaceBase):
   def accel_max(CS):
     maxAccel = CarInterface.ACCEL_MAX
     if CS.longControl:
-      eco = CS.jvePilotCarState.accEco
+      eco = CS.out.jvePilotCarState.accEco
       if eco == 1:
         maxAccel = cachedParams.get_float('jvePilot.settings.accEco.longAccelLevel1', 1000)
       elif eco == 2:
