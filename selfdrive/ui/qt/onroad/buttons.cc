@@ -15,6 +15,13 @@ void drawIcon(QPainter &p, const QPoint &center, const QPixmap &img, const QBrus
   p.setOpacity(1.0);
 }
 
+void drawImage(QPainter &p, const QPoint &center, const QPixmap &img, float opacity) {
+  p.setRenderHint(QPainter::Antialiasing);
+  p.setOpacity(opacity);
+  p.drawPixmap(center - QPoint(img.width() / 2, img.height() / 2), img);
+  p.setOpacity(1.0);
+}
+
 // ExperimentalButton
 ExperimentalButton::ExperimentalButton(QWidget *parent) : experimental_mode(false), engageable(false), QPushButton(parent) {
   setFixedSize(btn_size, btn_size);
@@ -79,11 +86,14 @@ void EcoButton::paintEvent(QPaintEvent *event) {
 }
 
 // AutoFollowButton
-AutoFollowButton::AutoFollowButton(QWidget *parent) : auto_follow(false), long_control(false), QPushButton(parent) {
+AutoFollowButton::AutoFollowButton(QWidget *parent) : auto_follow(false), long_control(false), cruise_enabled(false), QPushButton(parent) {
   setFixedSize(btn_size, btn_size);
 
   imgs[0] = loadPixmap("../assets/jvepilot/auto_follow_off.png", {img_size, img_size});
   imgs[1] = loadPixmap("../assets/jvepilot/auto_follow_on.png", {img_size, img_size});
+
+  long_control_imgs[0] = loadPixmap("../assets/jvepilot/driving_brain_off.png", {img_size, img_size});
+  long_control_imgs[1] = loadPixmap("../assets/jvepilot/driving_brain_on.png", {img_size, img_size});
 
   QObject::connect(this, &QPushButton::clicked, this, &AutoFollowButton::changeMode);
 }
@@ -95,20 +105,27 @@ void AutoFollowButton::changeMode() {
 }
 
 void AutoFollowButton::updateState(const UIState &s) {
-  const auto cs = (*s.sm)["carState"].getCarState().getJvePilotCarState();
+  const auto cs = (*s.sm)["carState"].getCarState();
+  const auto jveState = cs.getJvePilotCarState();
+  const auto cruiseState = cs.getCruiseState();
 
-  int autoFollow = cs.getAutoFollow();
-  bool longControl = cs.getLongControl();
-  if (autoFollow != auto_follow || longControl != long_control) {
+  int autoFollow = jveState.getAutoFollow();
+  bool longControl = jveState.getLongControl();
+  bool cruiseEnabled = cruiseState.getEnabled();
+  if (autoFollow != auto_follow || longControl != long_control || cruiseEnabled != cruise_enabled) {
     auto_follow = autoFollow;
     long_control = longControl;
+    cruise_enabled = cruiseEnabled;
     update();
   }
 }
 
 void AutoFollowButton::paintEvent(QPaintEvent *event) {
-  if (!long_control) {
-    QPainter p(this);
+  QPainter p(this);
+  if (long_control) {
+    QPixmap img = long_control_imgs[cruise_enabled ? 1 : 0];
+    drawIcon(p, QPoint(btn_size / 2, btn_size / 2), img, 1.0);
+  } else {
     QPixmap img = imgs[auto_follow ? 1 : 0];
     drawIcon(p, QPoint(btn_size / 2, btn_size / 2), img, QColor(0, 0, 0, 166), isDown() ? 0.6 : 1.0, btn_size);
   }

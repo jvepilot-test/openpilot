@@ -56,8 +56,11 @@ private:
 
   Params params;
   QPixmap imgs[2];
+  QPixmap long_control_imgs[2];
   bool auto_follow;
   bool long_control;
+  bool cruise_enabled;
 };
 
 void drawIcon(QPainter &p, const QPoint &center, const QPixmap &img, const QBrush &bg, float opacity, int btn_size);
+void drawImage(QPainter &p, const QPoint &center, const QPixmap &img, float opacity);
