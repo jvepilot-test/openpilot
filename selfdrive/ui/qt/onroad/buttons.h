@@ -60,4 +60,4 @@ private:
   bool long_control;
 };
 
-void drawIcon(QPainter &p, const QPoint &center, const QPixmap &img, const QBrush &bg, float opacity);
+void drawIcon(QPainter &p, const QPoint &center, const QPixmap &img, const QBrush &bg, float opacity, int btn_size);

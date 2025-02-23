@@ -4,7 +4,7 @@
 
 #include "selfdrive/ui/qt/util.h"
 
-void drawIcon(QPainter &p, const QPoint &center, const QPixmap &img, const QBrush &bg, float opacity) {
+void drawIcon(QPainter &p, const QPoint &center, const QPixmap &img, const QBrush &bg, float opacity, int btn_size) {
   p.setRenderHint(QPainter::Antialiasing);
   p.setOpacity(1.0);  // bg dictates opacity of ellipse
   p.setPen(Qt::NoPen);
@@ -45,7 +45,7 @@ void ExperimentalButton::updateState(const UIState &s) {
 void ExperimentalButton::paintEvent(QPaintEvent *event) {
   QPainter p(this);
   QPixmap img = experimental_mode ? experimental_img : engage_img;
-  drawIcon(p, QPoint(btn_size / 2, btn_size / 2), img, QColor(0, 0, 0, 166), (isDown() || !engageable) ? 0.6 : 1.0);
+  drawIcon(p, QPoint(btn_size / 2, btn_size / 2), img, QColor(0, 0, 0, 166), (isDown() || !engageable) ? 0.6 : 1.0, btn_size);
 }
 
 // EcoButton
@@ -75,7 +75,7 @@ void EcoButton::updateState(const UIState &s) {
 void EcoButton::paintEvent(QPaintEvent *event) {
   QPainter p(this);
   QPixmap img = eco_imgs[eco];
-  drawIcon(p, QPoint(btn_size_lg / 2, btn_size_lg / 2), img, QColor(0, 0, 0, 166), isDown() ? 0.6 : 1.0);
+  drawIcon(p, QPoint(btn_size_lg / 2, btn_size_lg / 2), img, QColor(0, 0, 0, 166), isDown() ? 0.6 : 1.0, btn_size_lg);
 }
 
 // AutoFollowButton
@@ -110,6 +110,6 @@ void AutoFollowButton::paintEvent(QPaintEvent *event) {
   if (!long_control) {
     QPainter p(this);
     QPixmap img = imgs[auto_follow ? 1 : 0];
-    drawIcon(p, QPoint(btn_size / 2, btn_size / 2), img, QColor(0, 0, 0, 166), isDown() ? 0.6 : 1.0);
+    drawIcon(p, QPoint(btn_size / 2, btn_size / 2), img, QColor(0, 0, 0, 166), isDown() ? 0.6 : 1.0, btn_size);
   }
 }
