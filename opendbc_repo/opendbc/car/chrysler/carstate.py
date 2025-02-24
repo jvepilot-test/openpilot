@@ -161,7 +161,7 @@ class CarState(CarStateBase):
       ret.steerFaultTemporary = cp.vl["EPS_3"]["DASM_FAULT"] == 1
     else:
       if abs(ret.steeringAngleDeg) > 200:
-        self.above_steer_angle_alert = True
+        self.above_steer_angle_alert = (self.CP.minSteerSpeed < 0.)
       elif abs(ret.steeringAngleDeg) < 180:
         self.above_steer_angle_alert = False
 
