@@ -1,11 +1,6 @@
 [![openpilot on the comma 3X](https://github.com/commaai/openpilot/assets/8762862/f09e6d29-db2d-4179-80c2-51e8d92bdb5c)](https://comma.ai/shop/comma-3x)
 
-# jvePilot OpenPilot/ACC for Chrysler/Jeep
-This fork is only for Chrysler/Jeep vehicles and requires a Comma 3 or later device to run. Comma 2 users need to use [this branch](https://github.com/j-vanetten/openpilot/tree/jvePilot-c2-release)
-
-[![Buy me a beer!](https://github.com/j-vanetten/openpilot/blob/jvePilot-release/.github/ButMeABeer.png?raw=true)](https://www.buymeacoffee.com/jvePilot)
-
-Come join us on [Discord](https://discord.gg/r8yaDBdnwH)!
+This is for my personal use, things may break, don't blame the original author!
 
 # Table of contents
 - [**Safety Notes**](#safety-notes)
